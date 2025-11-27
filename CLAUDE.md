@@ -11,16 +11,20 @@ Local Squid caching proxy for Claude Code sessions. Runs in Podman, auto-starts 
 
 ## Pre-commit Checks
 
-```bash
-# Validate Squid config
-podman exec squid-proxy squid -k parse
+**MANDATORY: Run before every commit**
 
-# Shellcheck all scripts
+```bash
+# Shellcheck all scripts (same as CI)
 shellcheck scripts/*.sh
+
+# Validate Squid config (same as CI)
+podman exec squid-proxy squid -k parse
 
 # Test basic functionality
 curl -x http://localhost:3128 -I http://example.com
 ```
+
+**Note**: GitHub Actions CI runs these same checks automatically on push/PR.
 
 ## Common Tasks
 

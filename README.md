@@ -1,5 +1,8 @@
 # Squid Caching Proxy for Claude Code
 
+[![CI](https://github.com/jeder/squid/actions/workflows/ci.yml/badge.svg)](https://github.com/jeder/squid/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Local caching proxy to speed up Claude Code sessions by caching web content.
 
 ## Features

@@ -19,10 +19,10 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/jeder/repos/squid/data/logs/launchd.out</string>
+    <string>$HOME/repos/squid/data/logs/launchd.out</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/jeder/repos/squid/data/logs/launchd.err</string>
+    <string>$HOME/repos/squid/data/logs/launchd.err</string>
 
     <key>EnvironmentVariables</key>
     <dict>
