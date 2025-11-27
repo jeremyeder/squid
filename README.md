@@ -8,11 +8,12 @@ Local caching proxy to speed up Claude Code sessions by caching web content.
 ## Features
 
 - 10GB disk cache for web content
-- HTTPS support via SSL bumping
+- HTTPS support via CONNECT tunneling
 - Auto-start on boot (launchd)
 - CLI management scripts
 - Web-based cache manager
 - Balanced caching strategy (respects TTLs)
+- Custom Alpine-based container image
 
 ## Quickstart
 
@@ -65,17 +66,6 @@ time curl -x http://localhost:3128 -I https://www.redhat.com
 
 ## Troubleshooting
 
-**SSL certificate errors:**
-```bash
-# Verify cert is trusted
-security find-certificate -c "Squid Proxy CA" /Library/Keychains/System.keychain
-
-# Reinstall if needed
-sudo security add-trusted-cert -d -r trustRoot \
-    -k /Library/Keychains/System.keychain \
-    certs/squid-ca.pem
-```
-
 **Proxy not working:**
 ```bash
 # Check container
@@ -98,8 +88,4 @@ podman volume rm squid-cache squid-logs
 # Remove launchd service
 launchctl unload ~/Library/LaunchAgents/com.jeder.squid-proxy.plist
 rm ~/Library/LaunchAgents/com.jeder.squid-proxy.plist
-
-# Remove certificate
-sudo security delete-certificate -c "Squid Proxy CA" \
-    /Library/Keychains/System.keychain
 ```

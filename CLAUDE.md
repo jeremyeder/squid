@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Local Squid caching proxy for Claude Code sessions. Runs in Podman, auto-starts via launchd.
+Local Squid caching proxy for Claude Code sessions. Uses custom Alpine-based container, runs in Podman, auto-starts via launchd. HTTPS support via CONNECT tunneling (no SSL bumping/MITM).
 
 ## Development Workflow
 
@@ -33,10 +33,11 @@ curl -x http://localhost:3128 -I http://example.com
 2. Validate: `podman exec squid-proxy squid -k parse`
 3. Reload: `podman exec squid-proxy squid -k reconfigure`
 
-**Update SSL cert (annual rotation):**
-1. `./scripts/gen-certs.sh`
-2. Reinstall in keychain
-3. Restart container
+**Rebuild container image:**
+1. Make changes to `Containerfile`
+2. `podman build -t localhost/squid:latest .`
+3. `podman stop squid-proxy && podman rm squid-proxy`
+4. Recreate container with new image (see `scripts/setup.sh`)
 
 ## Testing
 
@@ -49,10 +50,10 @@ curl -x http://localhost:3128 -I https://www.redhat.com
 
 ## Critical Files
 
-1. **config/squid.conf** - All caching behavior, SSL bump, ACLs
-2. **scripts/setup.sh** - Orchestrates entire setup
-3. **launchd/com.jeder.squid-proxy.plist** - Auto-start service
-4. **scripts/gen-certs.sh** - SSL certificate generation
+1. **config/squid.conf** - All caching behavior, refresh patterns, ACLs
+2. **Containerfile** - Custom Alpine Squid container image
+3. **scripts/setup.sh** - Orchestrates entire setup (builds image, creates container)
+4. **launchd/com.jeder.squid-proxy.plist** - Auto-start service
 
 ## Rollback Procedure
 

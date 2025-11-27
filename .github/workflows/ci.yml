@@ -17,21 +17,14 @@ jobs:
       - name: Validate squid.conf syntax
         run: |
           # Validate config file syntax and structure
-          # Note: Full SSL validation requires ssl-crtd support which isn't in standard builds
 
           # Check for required directives
           echo "Checking required directives..."
           grep -q "http_port 3128" config/squid.conf || exit 1
           grep -q "cache_dir" config/squid.conf || exit 1
-          grep -q "acl localhost" config/squid.conf || exit 1
-          grep -q "http_access allow localhost" config/squid.conf || exit 1
+          grep -q "acl localnet" config/squid.conf || exit 1
+          grep -q "http_access allow localnet" config/squid.conf || exit 1
           grep -q "http_access deny all" config/squid.conf || exit 1
-
-          # Check for SSL configuration (syntax only)
-          grep -q "ssl-bump" config/squid.conf || exit 1
-          grep -q "cert=" config/squid.conf || exit 1
-          grep -q "key=" config/squid.conf || exit 1
 
           echo "✓ Squid configuration syntax validation passed"
           echo "✓ All required directives present"
-          echo "Note: SSL functionality validated at runtime (requires ssl-crtd support)"
