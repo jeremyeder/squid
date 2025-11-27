@@ -47,7 +47,7 @@ echo "✓ launchd service installed"
 
 echo -e "\n✅ Setup complete!"
 echo -e "\nNext steps:"
-echo "  1. Add to shell profile (~/.zshrc):"
+echo "  1. Add to shell profile (~/.bashrc or ~/.bash_profile):"
 echo "       export http_proxy=http://localhost:3128"
 echo "       export https_proxy=http://localhost:3128"
 echo "  2. Test: curl -x http://localhost:3128 -I https://www.redhat.com"

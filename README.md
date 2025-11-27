@@ -21,8 +21,8 @@ Local caching proxy to speed up Claude Code sessions by caching web content.
 # Initial setup
 ./scripts/setup.sh
 
-# Add proxy toggle functions to ~/.zshrc (already done for you!)
-source ~/.zshrc
+# Add proxy toggle functions to ~/.bashrc (already done for you!)
+source ~/.bashrc
 
 # Enable proxy
 proxy-on
@@ -58,7 +58,7 @@ open http://localhost:8080/cachemgr.cgi
 
 ## Claude Code Integration
 
-The proxy is automatically configured for terminal use via shell functions in `~/.zshrc`:
+The proxy is automatically configured for terminal use via shell functions in `~/.bashrc`:
 
 ```bash
 # Enable proxy for current terminal session

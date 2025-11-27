@@ -4,6 +4,8 @@
 
 Local Squid caching proxy for Claude Code sessions. Uses custom Alpine-based container, runs in Podman, auto-starts via launchd. HTTPS support via CONNECT tunneling (no SSL bumping/MITM).
 
+**Shell**: Uses bash (not zsh) - all shell configuration goes in `~/.bashrc` or `~/.bash_profile`.
+
 ## Development Workflow
 
 - **Branch Strategy**: GitHub Flow (feature branches, PR to main)
