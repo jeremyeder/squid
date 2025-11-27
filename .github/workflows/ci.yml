@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate squid.conf syntax
+      - name: Validate squid.conf with SSL-enabled Squid
         run: |
-          # Basic syntax validation (check for common errors)
-          # Note: Full validation requires SSL-enabled Squid which isn't available in Ubuntu packages
-          grep -q "http_port" config/squid.conf
-          grep -q "cache_dir" config/squid.conf
-          grep -q "acl localhost" config/squid.conf
-          echo "✓ Basic squid.conf syntax validation passed"
+          # Use the same Ubuntu Squid container that the project uses
+          # This has SSL support compiled in
+          docker run --rm \
+            -v "$PWD/config/squid.conf:/etc/squid/squid.conf:ro" \
+            docker.io/ubuntu/squid:latest \
+            squid -k parse -f /etc/squid/squid.conf
