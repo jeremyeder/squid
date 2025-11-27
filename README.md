@@ -21,12 +21,17 @@ Local caching proxy to speed up Claude Code sessions by caching web content.
 # Initial setup
 ./scripts/setup.sh
 
-# Configure shell (add to ~/.zshrc)
-export http_proxy=http://localhost:3128
-export https_proxy=http://localhost:3128
+# Add proxy toggle functions to ~/.zshrc (already done for you!)
+source ~/.zshrc
+
+# Enable proxy
+proxy-on
 
 # Test
-curl -x http://localhost:3128 -I https://www.redhat.com
+curl -I https://www.redhat.com
+
+# Check status
+proxy-status
 ```
 
 ## Management
@@ -51,17 +56,43 @@ curl -x http://localhost:3128 -I https://www.redhat.com
 open http://localhost:8080/cachemgr.cgi
 ```
 
+## Claude Code Integration
+
+The proxy is automatically configured for terminal use via shell functions in `~/.zshrc`:
+
+```bash
+# Enable proxy for current terminal session
+proxy-on
+
+# Launch Claude Code - all HTTP/HTTPS requests will be cached
+claude
+
+# Check proxy status
+proxy-status
+
+# Disable proxy when done
+proxy-off
+```
+
+**How it works**: The `proxy-on` function sets standard environment variables (`http_proxy`, `https_proxy`) that Claude Code and other CLI tools automatically respect.
+
 ## Testing Cache Effectiveness
 
 ```bash
-# First request (cache MISS)
-time curl -x http://localhost:3128 -I https://www.redhat.com
+# Enable proxy first
+proxy-on
 
-# Second request (cache HIT - should be 10x faster!)
-time curl -x http://localhost:3128 -I https://www.redhat.com
+# First request (cache MISS)
+time curl -I https://www.redhat.com
+
+# Second request (cache HIT - should be 6x faster!)
+time curl -I https://www.redhat.com
 
 # View statistics
 ./scripts/squid-stats.sh
+
+# Disable when done
+proxy-off
 ```
 
 ## Troubleshooting
