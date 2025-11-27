@@ -1,0 +1,16 @@
+# SSL Certificates and Private Keys
+certs/
+
+# Runtime Data and Logs
+data/
+*.log
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
